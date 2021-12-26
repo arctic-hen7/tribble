@@ -125,7 +125,10 @@ pub enum Input {
 #[serde(rename_all = "kebab-case")]
 pub enum InputType {
     /// A boolean input.
-    Boolean,
+    Boolean {
+        /// A list of tags that will be accumulated if this boolean is set to `true`.
+        tags: Option<Vec<String>>,
+    },
     /// A multiline text input.
     Multiline,
     /// A color picker (only in supported browsers).
@@ -175,7 +178,7 @@ impl Default for InputType {
 impl ToString for InputType {
     fn to_string(&self) -> String {
         match self {
-            Self::Boolean => "checkbox".to_string(),
+            Self::Boolean { .. } => "checkbox".to_string(),
             Self::Multiline => "multiline".to_string(),
             Self::Color => "color".to_string(),
             Self::Text => "text".to_string(),

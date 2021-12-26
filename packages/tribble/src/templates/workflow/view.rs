@@ -197,6 +197,12 @@ fn render_section(
                                             tags.extend(tags_to_add);
                                         }
                                     }
+                                    // Do the same for boolean inputs
+                                    if let Input::Text { input_type: InputType::Boolean { tags: Some(new_tags) } } = input.input.clone() {
+                                        if value == "true" {
+                                            tags.extend(new_tags);
+                                        }
+                                    }
                                     // The value has already been registered globally, so we don't need to do any more
                                 }
                             }
@@ -342,7 +348,7 @@ fn render_section(
                                             ((*err_label.get()).clone())
                                         }
                                     },
-                                    InputType::Boolean => {
+                                    InputType::Boolean { .. } => {
                                         let checked = Signal::new(
                                             match default.as_str() {
                                                 "true" => true,

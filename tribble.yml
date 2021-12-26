@@ -8,6 +8,7 @@ workflows:
       - "A:backend"
       - "A:cli"
       - "A:server"
+      - "bool_selected"
     sections:
       Start:
         - "Hello, and welcome to the first stage of your contribution journey with Tribble!"
