@@ -116,11 +116,12 @@ pub fn workflow_inner(
 
     view! {
         // We set the caret color at the top-level (changes the outlines of form inputs, cursor color, etc.)
-        div(class = "flex justify-center items-center w-full h-full caret-purple-500") {
-            div(class = "section-container xs:shadow-md xs:rounded-lg text-center flex-col") {
+        div(class = "flex justify-center items-center w-full h-full") {
+            div(class = "section-container xs:shadow-md xs:rounded-lg text-center flex-col", id = "section-content") {
                 HistoryBreadcrumbs()
-                div(class = "section-content") {
-                    (*page.get())
+                // We want to alert screenreaders that this entire section can be swapped out for new content
+                main(class = "section-content", aria-live = "assertive", aria-atomic = true) {
+                    (*active_page.get())
                 }
             }
         }
@@ -636,7 +637,7 @@ fn history_breadcrumbs() -> View<G> {
     }));
 
     view! {
-        div {
+        nav(aria-live = "assertive") {
             // We center vertically so that the text separators stay in line with the button padding
             ol(class = "w-full flex items-center text-sm") {
                 // TODO Compress this to the first and last with dots based on screen size
