@@ -1,0 +1,37 @@
+workflows:
+  index:
+    tags:
+      - "C:bug"
+      - "C:enhancement"
+      - "C:performance"
+      - "C:docs"
+      - "A:backend"
+      - "A:cli"
+      - "A:server"
+    sections:
+      Start:
+        - "Hello, and welcome to the first stage of your contribution journey with Tribble!"
+        - { text: "I want to report a bug", link: "Report Bug", tags: [ "C:bug" ] }
+        - { text: "I want to suggest an enhancement", link: "Request Enhancement", tags: [ "C:enhancement" ] }
+        - { text: "I'd like to add something to the docs", link: "endpoint:Documentation", tags: [ "C:docs" ] }
+      Report Bug:
+        - "Welcome to the section for reporting bugs!"
+        - { id: "bug_description", label: "Describe the bug", type: "text" }
+        - { id: "test_textarea", label: "Textarea", type: "multiline" }
+        - { id: "test_datetime", label: "Datetime", type: "datetime-local" }
+        - { id: "bool", label: "Boolean", type: "boolean" }
+        - { text: "This bug occurs on the frontend", link: "endpoint:Bug", tags: [ "A:frontend" ] }
+      Request Enhancement:
+        - "Welcome to the section for suggesting enhancements!"
+        - { id: "feature_area", label: "Which area of the system does your feature affect?", options: [ "Frontend", { text: "Backend", tags: [ "A:backend" ] } ], can_select_multiple: true }
+        - { id: "test_select", label: "Which of the following best describes you?", options: [ "User", "Developer" ] }
+        - { text: "Continue", link: "endpoint:Enhancement", tags: [] }
+    index: Start
+    endpoints:
+      Bug:
+        preamble: "Thank you very much for reporting this bug, we'll get on it right away!"
+        text: "This report is reporting a bug. Description: ${bug_description}. Boolean: ${bool}"
+      Enhancement:
+        preamble: "Thanks for the request, we'll take a look!"
+        text: "This report is requesting an enhancement to the ${feature_area}."
+      Documentation: "You can contribute to the docs by doing foobar!"

@@ -1,0 +1,29 @@
+version = "0.3.2"
+
+[scripts]
+dev.cmd = "concurrently --kill-others \"bonnie dev export\" \"bonnie dev build-tailwind\" \"bonnie dev serve\""
+dev.desc = "runs `dev export` `dev build-tailwind` and `dev serve` simultaneously (needs `concurrently`)"
+dev.subcommands.build-tailwind.cmd = [
+    "cd packages/tribble",
+    "tailwindcss -i static/style.css -c tailwind.config.js -o static/tailwind.css --watch"
+]
+dev.subcommands.build-tailwind.subcommands.--prod.cmd = [
+    "cd packages/tribble",
+    "NODE_ENV=production tailwindcss -i static/style.css -c tailwind.config.js -o static/tailwind.css --minify"
+]
+
+dev.subcommands.export.cmd = [
+    "cd packages/tribble",
+    "find . -not -path \".perseus/*\" -not -path \"target/*\" | entr -s \"perseus export\""
+]
+dev.subcommands.export.desc = "exports the site, watching for changes"
+dev.subcommands.serve.cmd = [
+    "cd packages/tribble",
+    "browser-sync start --server \".perseus/dist/exported\" --files .perseus/dist --no-open --port 8080 --extensions html"
+]
+dev.subcommands.serve.desc = "serves the site's exported content"
+
+check.cmd = [
+    "cargo watch"
+]
+check.desc = "watches the project for changes and checks code validity"
