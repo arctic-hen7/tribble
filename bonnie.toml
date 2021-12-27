@@ -35,22 +35,22 @@ check.cmd = [
 check.desc = "watches the project for changes and checks code validity"
 
 prep-wasm.cmd = [
-    "rm -rf packages/tribble-cli/.tribble",
-    "mkdir packages/tribble-cli/.tribble",
+    "rm -rf packages/tribble/.tribble",
+    "mkdir packages/tribble/.tribble",
     # Utility files that we'll move around when we need the,
-    "mkdir packages/tribble-cli/.tribble/utils",
+    "mkdir packages/tribble/.tribble/utils",
     # The actual output that we'll produce (not the same as Perseus')
-    "mkdir packages/tribble-cli/.tribble/dist",
+    "mkdir packages/tribble/.tribble/dist",
     # Working directories for Perseus
-    "mkdir packages/tribble-cli/.tribble/perseus",
-    "mkdir packages/tribble-cli/.tribble/perseus/mutable",
-    "cd packages/tribble/.perseus",
+    "mkdir packages/tribble/.tribble/perseus",
+    "mkdir packages/tribble/.tribble/perseus/mutable",
+    "cd packages/tribble-app/.perseus",
     "wasm-pack build --target web --release",
     "cd ../",
     # Copy in utilities (bundles and CSS)
-    "cp .perseus/pkg/perseus_engine_bg.wasm ../tribble-cli/.tribble/utils/bundle.wasm",
-    "cp .perseus/pkg/perseus_engine.js ../tribble-cli/.tribble/utils/bundle.js",
-    "cp index.html ../tribble-cli/.tribble/utils/index.html",
-    "cp -r static/ ../tribble-cli/.tribble/utils/static"
+    "cp .perseus/pkg/perseus_engine_bg.wasm ../tribble/.tribble/utils/bundle.wasm",
+    "cp .perseus/pkg/perseus_engine.js ../tribble/.tribble/utils/bundle.js",
+    "cp index.html ../tribble/.tribble/utils/index.html",
+    "cp -r static/ ../tribble/.tribble/utils/static"
 ]
 prep-wasm.desc = "builds the wasm artifacts and prepares them for the cli"
