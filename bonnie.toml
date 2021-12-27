@@ -27,3 +27,15 @@ check.cmd = [
     "cargo watch"
 ]
 check.desc = "watches the project for changes and checks code validity"
+
+prep-wasm.cmd = [
+    "rm -rf packages/tribble-cli/.tribble",
+    "mkdir packages/tribble-cli/.tribble",
+    "mkdir packages/tribble-cli/.tribble/pkg",
+    "mkdir packages/tribble-cli/.tribble/dist",
+    "cd packages/tribble/.perseus",
+    "wasm-pack build --target web --release",
+    "mv pkg/perseus_engine_bg.wasm ../../tribble-cli/.tribble/pkg/bundle.wasm",
+    "mv pkg/perseus_engine.js ../../tribble-cli/.tribble/pkg/bundle.js"
+]
+prep-wasm.desc = "builds the wasm artifacts and prepares them for the cli"

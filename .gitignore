@@ -3,3 +3,5 @@ Cargo.lock
 node_modules/
 .perseus/
 tailwind.css
+# This is still included in the Cargo package
+.tribble/

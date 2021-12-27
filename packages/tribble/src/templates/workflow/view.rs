@@ -121,7 +121,7 @@ pub fn workflow_inner(
                 HistoryBreadcrumbs()
                 // We want to alert screenreaders that this entire section can be swapped out for new content
                 main(class = "section-content", aria-live = "assertive", aria-atomic = true) {
-                    (*active_page.get())
+                    (*page.get())
                 }
             }
         }
