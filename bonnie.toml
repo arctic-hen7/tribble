@@ -39,8 +39,6 @@ prep-wasm.cmd = [
     "mkdir packages/tribble/.tribble",
     # Utility files that we'll move around when we need the,
     "mkdir packages/tribble/.tribble/utils",
-    # The actual output that we'll produce (not the same as Perseus')
-    "mkdir packages/tribble/.tribble/dist",
     # Working directories for Perseus
     "mkdir packages/tribble/.tribble/perseus",
     "mkdir packages/tribble/.tribble/perseus/mutable",

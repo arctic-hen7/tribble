@@ -1,7 +1,10 @@
+mod build;
+mod delete;
 mod errors;
 mod options;
 mod prep;
 
+use crate::delete::delete_dist_dir;
 use crate::errors::*;
 use crate::options::*;
 use crate::prep::prep;
@@ -52,16 +55,20 @@ fn real_main() -> i32 {
 fn core(dir: PathBuf) -> Result<i32, Error> {
     // Parse the CLI options with `clap`
     let opts: Opts = Opts::parse();
-    // If we're not cleaning up artifacts, create them if needed
+    // Set the `TRIBBLE_CONF` environment variable to what the user provided (used by the static exporting binary)
+    env::set_var("TRIBBLE_CONF", opts.config);
+    // If we're not cleaning up artifacts, create them if needed and remove the `dist/` directory
     if !matches!(opts.subcmd, Subcommand::Clean) {
         prep(dir.clone())?;
+        delete_dist_dir(dir.clone())?;
     }
     let exit_code = match opts.subcmd {
         Subcommand::Build => {
-            // TODO Build the user's app
-            0
+            // Build the user's app
+            crate::build::build(dir)?
         }
         Subcommand::Serve => {
+            //
             // TODO Serve the user's app
             0
         }

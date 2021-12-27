@@ -1,6 +1,6 @@
 mod error_pages;
-mod errors;
-pub mod parser;
+pub mod errors;
+mod parser;
 mod svg;
 mod templates;
 

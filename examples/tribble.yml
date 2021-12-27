@@ -1,5 +1,5 @@
 workflows:
-  index:
+  test:
     tags:
       - "C:bug"
       - "C:enhancement"
