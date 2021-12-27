@@ -5,6 +5,7 @@ mod options;
 mod prep;
 
 use crate::delete::delete_dist_dir;
+use crate::delete::delete_tribble_dir;
 use crate::errors::*;
 use crate::options::*;
 use crate::prep::prep;
@@ -73,7 +74,8 @@ fn core(dir: PathBuf) -> Result<i32, Error> {
             0
         }
         Subcommand::Clean => {
-            // TODO Delete the `.tribble/` directory
+            // Delete the `.tribble/` directory
+            delete_tribble_dir(dir)?;
             0
         }
         Subcommand::Deploy => {
