@@ -3,24 +3,25 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 pub enum Error {
     #[error(transparent)]
-    Parser(ParserError),
+    PrepError(#[from] PrepError),
 }
+
 #[derive(Error, Debug)]
-pub enum ParserError {
-    #[error("filesystem error occurred while attempting to parse config file at '{filename}")]
-    FsError {
-        filename: String,
+pub enum PrepError {
+    #[error("couldn't extract internal `.tribble/` directory, please ensure you have write permissions here")]
+    ExtractionFailed {
+        target_dir: Option<String>,
         #[source]
         source: std::io::Error,
     },
-    #[error("parsing error occurred while attempting to deserialize config at '{filename}'")]
-    ParseRawError {
-        filename: String,
+    #[error("couldn't update your `.gitignore`, you should add `.tribble/` to it manually")]
+    GitignoreUpdateFailed {
         #[source]
-        source: serde_yaml::Error,
+        source: std::io::Error,
     },
-    #[error("the root config file at '{filename}' did not define any languages (you must define at least one)")]
-    NoLanguages { filename: String },
-    #[error("the root config file at '{filename}' linked to another root config file at '{linked}', but root config files can only link to language config files")]
-    RootLinksToRoot { filename: String, linked: String },
+    #[error("couldn't get your current directory (this is probably an error in your system configuration)")]
+    CurrentDirUnavailable {
+        #[source]
+        source: std::io::Error,
+    },
 }

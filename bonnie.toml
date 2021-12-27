@@ -1,27 +1,33 @@
 version = "0.3.2"
 
 [scripts]
-dev.cmd = "concurrently --kill-others \"bonnie dev export\" \"bonnie dev build-tailwind\" \"bonnie dev serve\""
-dev.desc = "runs `dev export` `dev build-tailwind` and `dev serve` simultaneously (needs `concurrently`)"
-dev.subcommands.build-tailwind.cmd = [
+dev.cmd = [
     "cd packages/tribble",
+    "cargo run -- %%"
+]
+dev.desc = "runs the cli with the provided options (this will execute in the `examples/` directory)"
+
+dev-old.cmd = "concurrently --kill-others \"bonnie dev-old export\" \"bonnie dev-old build-tailwind\" \"bonnie dev-old serve\""
+dev-old.desc = "runs `dev-old export` `dev-old build-tailwind` and `dev-old serve` simultaneously (needs `concurrently`)"
+dev-old.subcommands.build-tailwind.cmd = [
+    "cd packages/tribble-app",
     "tailwindcss -i static/style.css -c tailwind.config.js -o static/tailwind.css --watch"
 ]
-dev.subcommands.build-tailwind.subcommands.--prod.cmd = [
-    "cd packages/tribble",
+dev-old.subcommands.build-tailwind.subcommands.--prod.cmd = [
+    "cd packages/tribble-app",
     "NODE_ENV=production tailwindcss -i static/style.css -c tailwind.config.js -o static/tailwind.css --minify"
 ]
 
-dev.subcommands.export.cmd = [
-    "cd packages/tribble",
+dev-old.subcommands.export.cmd = [
+    "cd packages/tribble-app",
     "find . -not -path \".perseus/*\" -not -path \"target/*\" | entr -s \"perseus export\""
 ]
-dev.subcommands.export.desc = "exports the site, watching for changes"
-dev.subcommands.serve.cmd = [
-    "cd packages/tribble",
+dev-old.subcommands.export.desc = "exports the site, watching for changes"
+dev-old.subcommands.serve.cmd = [
+    "cd packages/tribble-app",
     "browser-sync start --server \".perseus/dist/exported\" --files .perseus/dist --no-open --port 8080 --extensions html"
 ]
-dev.subcommands.serve.desc = "serves the site's exported content"
+dev-old.subcommands.serve.desc = "serves the site's exported content"
 
 check.cmd = [
     "cargo watch"
@@ -31,11 +37,20 @@ check.desc = "watches the project for changes and checks code validity"
 prep-wasm.cmd = [
     "rm -rf packages/tribble-cli/.tribble",
     "mkdir packages/tribble-cli/.tribble",
-    "mkdir packages/tribble-cli/.tribble/pkg",
+    # Utility files that we'll move around when we need the,
+    "mkdir packages/tribble-cli/.tribble/utils",
+    # The actual output that we'll produce (not the same as Perseus')
     "mkdir packages/tribble-cli/.tribble/dist",
+    # Working directories for Perseus
+    "mkdir packages/tribble-cli/.tribble/perseus",
+    "mkdir packages/tribble-cli/.tribble/perseus/mutable",
     "cd packages/tribble/.perseus",
     "wasm-pack build --target web --release",
-    "mv pkg/perseus_engine_bg.wasm ../../tribble-cli/.tribble/pkg/bundle.wasm",
-    "mv pkg/perseus_engine.js ../../tribble-cli/.tribble/pkg/bundle.js"
+    "cd ../",
+    # Copy in utilities (bundles and CSS)
+    "cp .perseus/pkg/perseus_engine_bg.wasm ../tribble-cli/.tribble/utils/bundle.wasm",
+    "cp .perseus/pkg/perseus_engine.js ../tribble-cli/.tribble/utils/bundle.js",
+    "cp index.html ../tribble-cli/.tribble/utils/index.html",
+    "cp -r static/ ../tribble-cli/.tribble/utils/static"
 ]
 prep-wasm.desc = "builds the wasm artifacts and prepares them for the cli"

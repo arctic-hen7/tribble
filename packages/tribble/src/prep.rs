@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
-use include_dir::{include_dir, Dir};
 use crate::errors::*;
+use include_dir::{include_dir, Dir};
 use std::fs::{self, OpenOptions};
 use std::io::Write;
 
