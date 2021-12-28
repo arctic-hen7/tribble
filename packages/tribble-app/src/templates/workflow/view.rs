@@ -3,6 +3,7 @@ use crate::parser::{
     Endpoint, Input, InputSectionElem, InputType, Section, SectionElem, SelectOption,
 };
 use crate::svg;
+#[cfg(not(debug_assertions))]
 use js_sys::Function;
 use std::collections::HashMap;
 use sycamore::context::{use_context, ContextProvider, ContextProviderProps};
@@ -54,9 +55,9 @@ pub fn workflow(props: WorkflowProps) -> View<G> {
     let index_loc = props.workflow.index.clone();
     // If we're in the browser, immediately tell it that we want to prompt the user before they leave the page
     // we'll only actually do this if we're in dev mode
+    #[cfg(not(debug_assertions))]
     if G::IS_BROWSER {
         let window = web_sys::window().unwrap();
-        #[cfg(debug_assertions)]
         window.set_onbeforeunload(Some(&Function::new_with_args(
             "ev",
             "ev.preventDefault();ev.returnValue = \"\"",
