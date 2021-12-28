@@ -12,9 +12,13 @@ use crate::options::*;
 use crate::prep::prep;
 use clap::Parser;
 use fmterr::fmt_err;
+use notify::{watcher, RecursiveMode, Watcher};
 use std::env;
 use std::fs;
 use std::path::PathBuf;
+use std::sync::mpsc::channel;
+use std::time::Duration;
+use tribble_app::parser::Config;
 
 /// The current version of the CLI, extracted from the crate version.
 pub const TRIBBLE_VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -59,8 +63,9 @@ async fn real_main() -> i32 {
 async fn core(dir: PathBuf) -> Result<i32, Error> {
     // Parse the CLI options with `clap`
     let opts: Opts = Opts::parse();
+    let root_cfg_path = opts.config;
     // Set the `TRIBBLE_CONF` environment variable to what the user provided (used by the static exporting binary)
-    env::set_var("TRIBBLE_CONF", opts.config);
+    env::set_var("TRIBBLE_CONF", &root_cfg_path);
     // If we're not cleaning up artifacts, create them if needed and remove the `dist/` directory
     if !matches!(opts.subcmd, Subcommand::Clean) {
         prep(dir.clone())?;
@@ -75,17 +80,60 @@ async fn core(dir: PathBuf) -> Result<i32, Error> {
             no_build,
             host,
             port,
+            watch,
         } => {
-            // Build the user's app (unless `--no-build` was provided)
+            // Start up the server as another task after an initial build
             if !no_build {
                 let build_exit_code = crate::build::build(dir.clone())?;
                 if build_exit_code != 0 {
                     return Ok(build_exit_code);
                 }
             }
-            // Serve the user's app
-            crate::serve::serve(dir, host, port).await;
-            0
+
+            if watch {
+                let dir_2 = dir.clone();
+                tokio::spawn(async move { crate::serve::serve(dir_2, host, port).await });
+                // Now watch for changes
+                let (tx, rx) = channel();
+                let mut watcher = watcher(tx, Duration::from_secs(2))
+                    .map_err(|err| ServeError::WatcherSetupFailed { source: err })?;
+                // Watch the root configuration
+                watcher
+                    .watch(&root_cfg_path, RecursiveMode::Recursive)
+                    .map_err(|err| ServeError::WatchFileFailed {
+                        filename: root_cfg_path.clone(),
+                        source: err,
+                    })?;
+                // Parse that to get any language files
+                let cfg = Config::new(&root_cfg_path)
+                    .map_err(|err| ServeError::ParserError { source: err })?;
+                if let Config::Root { languages } = cfg {
+                    for (_, lang_file_cfg_path) in languages {
+                        dbg!(lang_file_cfg_path);
+                    }
+                }
+
+                let res: Result<i32, Error> = loop {
+                    match rx.recv() {
+                        Ok(_) => {
+                            // Delete the distribution artifacts (the serve ris hilariously fine with this)
+                            delete_dist_dir(dir.clone())?;
+                            // Regardless of the event type, rebuild the app
+                            if !no_build {
+                                let build_exit_code = crate::build::build(dir.clone())?;
+                                if build_exit_code != 0 {
+                                    break Ok(build_exit_code);
+                                }
+                            }
+                        }
+                        Err(err) => break Err(ServeError::WatcherError { source: err }.into()),
+                    }
+                };
+                return res;
+            } else {
+                crate::serve::serve(dir, host, port).await;
+                0
+            }
         }
         Subcommand::Clean => {
             // Delete the `.tribble/` directory

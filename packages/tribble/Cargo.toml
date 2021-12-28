@@ -20,3 +20,4 @@ include_dir = "0.6"
 fs_extra = "1"
 warp = "0.3"
 tokio = { version = "1", features = [ "macros", "rt-multi-thread" ] }
+notify = "4"

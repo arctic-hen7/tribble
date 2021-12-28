@@ -18,6 +18,8 @@ pub enum Error {
         #[source]
         source: std::io::Error,
     },
+    #[error(transparent)]
+    ServeError(#[from] ServeError),
 }
 
 #[derive(Error, Debug)]
@@ -95,5 +97,29 @@ pub enum DeleteError {
         loc: String,
         #[source]
         source: std::io::Error,
+    },
+}
+#[derive(Error, Debug)]
+pub enum ServeError {
+    #[error("couldn't set up file watcher, please check your system configuration")]
+    WatcherSetupFailed {
+        #[source]
+        source: notify::Error,
+    },
+    #[error("an error occurred while watching files for changes")]
+    WatcherError {
+        #[source]
+        source: std::sync::mpsc::RecvError,
+    },
+    #[error("couldn't watch file at '{filename}', try re-running the command")]
+    WatchFileFailed {
+        filename: String,
+        #[source]
+        source: notify::Error,
+    },
+    #[error("couldn't parse your tribble configuration")]
+    ParserError {
+        #[source]
+        source: tribble_app::errors::ParserError,
     },
 }

@@ -32,6 +32,9 @@ pub enum Subcommand {
         /// The port to host Tribble on
         #[clap(long, default_value = "8080")]
         port: u16,
+        /// Whether or not to watch for file changes to your Tribble config files
+        #[clap(long, short)]
+        watch: bool,
     },
     /// Builds your Tribble workflows for release deployment
     Deploy {
