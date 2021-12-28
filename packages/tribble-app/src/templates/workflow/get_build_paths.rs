@@ -8,9 +8,10 @@ use crate::{errors::ParserError, parser::Config};
 // TODO maybe generatea  root page for selecting workflows?
 pub async fn get_build_paths() -> RenderFnResult<Vec<String>> {
     // We need a root config file to work with
-    // TODO Choose a sane default for the real world (not dev)
+    // With the CLI, this variable will always be defined
+    // In dev, we use the `basic` example
     let root_cfg_file_path =
-        env::var("TRIBBLE_CONF").unwrap_or_else(|_| "../../../tribble.yml".to_string());
+        env::var("TRIBBLE_CONF").unwrap_or_else(|_| "../../../examples/basic.yml".to_string());
     let root_cfg = Config::new(&root_cfg_file_path)?;
     match root_cfg {
         Config::Root { languages } => {
