@@ -109,7 +109,12 @@ async fn core(dir: PathBuf) -> Result<i32, Error> {
                     .map_err(|err| ServeError::ParserError { source: err })?;
                 if let Config::Root { languages } = cfg {
                     for (_, lang_file_cfg_path) in languages {
-                        dbg!(lang_file_cfg_path);
+                        watcher
+                            .watch(&lang_file_cfg_path, RecursiveMode::Recursive)
+                            .map_err(|err| ServeError::WatchFileFailed {
+                                filename: lang_file_cfg_path,
+                                source: err,
+                            })?
                     }
                 }
 
@@ -125,6 +130,7 @@ async fn core(dir: PathBuf) -> Result<i32, Error> {
                                     break Ok(build_exit_code);
                                 }
                             }
+                            // TODO Reload the browser automatically
                         }
                         Err(err) => break Err(ServeError::WatcherError { source: err }.into()),
                     }

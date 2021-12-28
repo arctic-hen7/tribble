@@ -14,7 +14,9 @@ pub async fn get_build_paths() -> RenderFnResult<Vec<String>> {
         env::var("TRIBBLE_CONF").unwrap_or_else(|_| "../../../examples/basic.yml".to_string());
     let root_cfg = Config::new(&root_cfg_file_path)?;
     match root_cfg {
-        Config::Root { languages } => {
+        Config::Root { languages, .. } => {
+            // We use a custom i18n system to avoid having to inject locales into the root `index.html` file (I spent two hours on that...)
+            // We just generate a page for each language/workflow combination
             // We assume workflows are the same for all languages, so we can choose a random one
             match languages.keys().collect::<Vec<&String>>().get(0) {
                 Some(key) => {
@@ -22,8 +24,15 @@ pub async fn get_build_paths() -> RenderFnResult<Vec<String>> {
                     let language_cfg = Config::new(language_cfg_path)?;
                     match language_cfg {
                         Config::Language { workflows, .. } => {
+                            // Loop through those workflows and create a new page for each locale/workflow combination
+                            let mut pages = Vec::new();
+                            for workflow_name in workflows.keys() {
+                                for lang in languages.keys() {
+                                    pages.push(format!("{}/{}", lang, workflow_name));
+                                }
+                            }
                             // For each workflow, generate a separate page
-                            Ok(workflows.keys().cloned().collect::<Vec<String>>())
+                            Ok(pages)
                         }
                         // If a root file links to another root file, that's an invalid structure
                         Config::Root { .. } => Err(ParserError::RootLinksToRoot {

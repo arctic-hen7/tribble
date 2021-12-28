@@ -1,2 +1,3 @@
 languages:
   en-US: basic.yml
+default_language: en-US
