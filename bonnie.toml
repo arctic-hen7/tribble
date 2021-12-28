@@ -53,3 +53,8 @@ prep-wasm.cmd = [
     "cp -r static/ ../tribble/.tribble/utils/static"
 ]
 prep-wasm.desc = "builds the wasm artifacts and prepares them for the cli"
+tinker.cmd = [
+    "cd packages/tribble-app",
+    "perseus tinker"
+]
+tinker.desc = "runs `perseus tinker` on the app"

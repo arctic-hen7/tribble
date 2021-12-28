@@ -10,12 +10,14 @@ mod export;
 // #[cfg(target_arch = "wasm32")]
 pub use export::export;
 
-use perseus::define_app;
+use perseus::{define_app, Plugins};
+use perseus_size_opt::{perseus_size_opt, SizeOpts};
 
 define_app! {
     templates: [
         crate::templates::index::get_template::<G>(),
         crate::templates::workflow::get_template::<G>()
     ],
-    error_pages: crate::error_pages::get_error_pages()
+    error_pages: crate::error_pages::get_error_pages(),
+    plugins: Plugins::new().plugin(perseus_size_opt, SizeOpts::default())
 }
