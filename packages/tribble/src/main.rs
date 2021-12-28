@@ -13,6 +13,7 @@ use crate::prep::prep;
 use clap::Parser;
 use fmterr::fmt_err;
 use std::env;
+use std::fs;
 use std::path::PathBuf;
 
 /// The current version of the CLI, extracted from the crate version.
@@ -91,8 +92,22 @@ async fn core(dir: PathBuf) -> Result<i32, Error> {
             delete_tribble_dir(dir)?;
             0
         }
-        Subcommand::Deploy => {
-            // TODO Deploy the app
+        Subcommand::Deploy { output } => {
+            // Build the app
+            let build_exit_code = crate::build::build(dir.clone())?;
+            if build_exit_code != 0 {
+                return Ok(build_exit_code);
+            }
+            // Move the contents of `.tribble/dist` out to the output directory
+            let from = dir.join(".tribble/dist");
+            if let Err(err) = fs::rename(&from, &output) {
+                return Err(Error::DeployError {
+                    from: from.to_str().map(|s| s.to_string()).unwrap(),
+                    to: output,
+                    source: err,
+                });
+            }
+
             0
         }
     };

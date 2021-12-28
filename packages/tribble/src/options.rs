@@ -34,7 +34,11 @@ pub enum Subcommand {
         port: u16,
     },
     /// Builds your Tribble workflows for release deployment
-    Deploy,
+    Deploy {
+        /// The name of the directory to output Tribble to
+        #[clap(short, long, default_value = "pkg")]
+        output: String,
+    },
     /// Deletes the `.tribble/` directory in the case of a corruption
     Clean,
 }

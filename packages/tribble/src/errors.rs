@@ -10,6 +10,14 @@ pub enum Error {
     BuildError(#[from] BuildError),
     #[error(transparent)]
     DeleteError(#[from] DeleteError),
+    // There's only one kind of deployment error, if we fail to move `.tribble/dist/` to the given output directory
+    #[error("couldn't move generated tribble files from '{from}' to '{to}'")]
+    DeployError {
+        from: String,
+        to: String,
+        #[source]
+        source: std::io::Error,
+    },
 }
 
 #[derive(Error, Debug)]
