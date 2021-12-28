@@ -3,9 +3,10 @@ version = "0.3.2"
 [scripts]
 dev.cmd = [
     "cd packages/tribble",
-    "cargo run -- %%"
+    "cargo run -- -c \"%example.yml\" %%"
 ]
-dev.desc = "runs the cli with the provided options (this will execute in the `examples/` directory)"
+dev.args = [ "example" ]
+dev.desc = "runs the cli with the provided options (this will execute in the `examples/` directory on the provided config file)"
 
 dev-old.cmd = "concurrently --kill-others \"bonnie dev-old export\" \"bonnie dev-old build-tailwind\" \"bonnie dev-old serve\""
 dev-old.desc = "runs `dev-old export` `dev-old build-tailwind` and `dev-old serve` simultaneously (needs `concurrently`)"
