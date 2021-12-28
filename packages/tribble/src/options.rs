@@ -18,10 +18,21 @@ pub struct Opts {
 
 #[derive(Parser)]
 pub enum Subcommand {
-    /// Builds your Tribble workflows. This is called by `tribble serve` automatically
+    /// Builds your Tribble workflows. This is called by `tribble serve` automatically. Note that this is always in release
+    /// mode, Tribble has no other mode
     Build,
     /// Serves your Tribble workflows locally for development
-    Serve,
+    Serve {
+        /// Don't build your app (if you haven't already run `tribble build`, you'll get a blank page in your browser)
+        #[clap(long, short)]
+        no_build: bool,
+        /// Where to host Tribble
+        #[clap(long, default_value = "127.0.0.1")]
+        host: String,
+        /// The port to host Tribble on
+        #[clap(long, default_value = "8080")]
+        port: u16,
+    },
     /// Builds your Tribble workflows for release deployment
     Deploy,
     /// Deletes the `.tribble/` directory in the case of a corruption

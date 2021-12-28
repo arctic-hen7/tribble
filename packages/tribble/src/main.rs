@@ -3,6 +3,7 @@ mod delete;
 mod errors;
 mod options;
 mod prep;
+mod serve;
 
 use crate::delete::delete_dist_dir;
 use crate::delete::delete_tribble_dir;
@@ -18,17 +19,18 @@ use std::path::PathBuf;
 pub const TRIBBLE_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 // All this does is run the program and terminate with the acquired exit code
-fn main() {
+#[tokio::main]
+async fn main() {
     // In development, we'll test one of the examples
     if cfg!(debug_assertions) {
         env::set_current_dir("../../examples").unwrap();
     }
-    let exit_code = real_main();
+    let exit_code = real_main().await;
     std::process::exit(exit_code)
 }
 
 // This manages error handling and returns a definite exit code to terminate with
-fn real_main() -> i32 {
+async fn real_main() -> i32 {
     // Get the working directory
     let dir = env::current_dir();
     let dir = match dir {
@@ -41,7 +43,7 @@ fn real_main() -> i32 {
             return 1;
         }
     };
-    let res = core(dir);
+    let res = core(dir).await;
     match res {
         // If it worked, we pass the executed command's exit code through
         Ok(exit_code) => exit_code,
@@ -53,7 +55,7 @@ fn real_main() -> i32 {
     }
 }
 
-fn core(dir: PathBuf) -> Result<i32, Error> {
+async fn core(dir: PathBuf) -> Result<i32, Error> {
     // Parse the CLI options with `clap`
     let opts: Opts = Opts::parse();
     // Set the `TRIBBLE_CONF` environment variable to what the user provided (used by the static exporting binary)
@@ -68,9 +70,20 @@ fn core(dir: PathBuf) -> Result<i32, Error> {
             // Build the user's app
             crate::build::build(dir)?
         }
-        Subcommand::Serve => {
-            //
-            // TODO Serve the user's app
+        Subcommand::Serve {
+            no_build,
+            host,
+            port,
+        } => {
+            // Build the user's app (unless `--no-build` was provided)
+            if !no_build {
+                let build_exit_code = crate::build::build(dir.clone())?;
+                if build_exit_code != 0 {
+                    return Ok(build_exit_code);
+                }
+            }
+            // Serve the user's app
+            crate::serve::serve(dir, host, port).await;
             0
         }
         Subcommand::Clean => {
