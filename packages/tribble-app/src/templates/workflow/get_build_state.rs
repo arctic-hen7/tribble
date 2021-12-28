@@ -23,7 +23,7 @@ pub async fn get_build_state(
     let path = path.strip_prefix("workflow/").unwrap();
 
     let root_cfg_path =
-        env::var("TRIBBLE_CONF").unwrap_or_else(|_| "../../../tribble.yml".to_string());
+        env::var("TRIBBLE_CONF").unwrap_or_else(|_| "../../../examples/basic.yml".to_string());
     let root_cfg = Config::new(&root_cfg_path)?;
     let input_err_msg;
     // This will be a different part of the path depending on whether or not we're using i18n
