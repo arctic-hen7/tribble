@@ -30,11 +30,6 @@ app.subcommands.serve.cmd = [
 ]
 app.subcommands.serve.desc = "serves the site's exported content"
 
-check.cmd = [
-    "cargo watch"
-]
-check.desc = "watches the project for changes and checks code validity"
-
 prep-wasm.cmd = [
     "rm -rf packages/tribble/.tribble",
     "mkdir packages/tribble/.tribble",
@@ -58,3 +53,25 @@ tinker.cmd = [
     "perseus tinker"
 ]
 tinker.desc = "runs `perseus tinker` on the app"
+
+build.cmd = [
+    "bonnie tinker",
+    "bonnie prep-wasm",
+    "cd packages/tribble",
+    # We allow extra arguments here so that we can cross-compile if necessary
+    "cargo build --release %%"
+]
+
+ci.subcommands.prep.cmd = [
+    "cargo install wasm-pack perseus-cli",
+    "rustup target add wasm32-unknown-unknown",
+    "cd packages/tribble-app",
+    "perseus prep"
+]
+ci.subcommands.prep.desc = "prepares dependencies for CI (this doesn't prepare the Wasm artifacts)"
+check.cmd = [
+    "cargo check --all",
+    "cargo fmt --all -- --check",
+    "cargo clippy --all"
+]
+check.desc = "checks code for compile and formatting errors"
