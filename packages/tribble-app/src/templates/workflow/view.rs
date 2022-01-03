@@ -117,7 +117,7 @@ pub fn workflow_inner(
 
     view! {
         // We set the caret color at the top-level (changes the outlines of form inputs, cursor color, etc.)
-        div(class = "flex justify-center items-center w-full h-full") {
+        div(class = "flex justify-center xs:items-center w-full h-full") {
             div(class = "section-container xs:shadow-md xs:rounded-lg text-center flex-col", id = "section-content") {
                 HistoryBreadcrumbs()
                 // We want to alert screenreaders that this entire section can be swapped out for new content
@@ -370,8 +370,15 @@ fn render_section(
                                         view! {
                                             label(class = "switch") {
                                                 span() { (label) }
-                                                input(type = "checkbox", bind:checked = checked, id = id) {}
-                                                span() {}
+                                                // We need to move the keyboard accessibility from the `input` to the `span` that will actually hold the switch
+                                                input(type = "checkbox", bind:checked = checked.clone(), id = id, tabindex = "-1") {}
+                                                span(role = "checkButton", tabindex = "0", on:keydown = cloned!(checked => move |ev: web_sys::Event| {
+                                                    let ev: web_sys::KeyboardEvent = ev.unchecked_into();
+                                                    // If this is the Enter key, we should toggle the state
+                                                    if ev.key_code() == 13 {
+                                                        checked.set(!*checked.get());
+                                                    }
+                                                })) {}
                                             }
                                             ((*err_label.get()).clone())
                                         }
@@ -553,11 +560,12 @@ fn render_report_endpoint(
     view! {
         p(class = "mb-2") { (preamble) }
         // The report itself is preformatted
-        pre(class = "group overflow-x-auto break-words whitespace-pre-wrap") {
+        // TODO Make this copy button keyboard-accessible
+        pre(class = "group overflow-x-auto break-words whitespace-pre-wrap", tabindex = "0") {
             div(class = "relative") {
                 button(
                     on:click = copy_handler,
-                    class = "absolute top-0 right-0 mt-1 mr-1 rounded-md invisible group-hover:visible bg-neutral-200 hover:bg-neutral-300 text-black transition-all duration-200 opacity-0 group-hover:opacity-100"
+                    class = "absolute top-0 right-0 mt-1 mr-1 rounded-md invisible focus:visible group-focus:visible group-hover:visible bg-neutral-200 hover:bg-neutral-300 text-black transition-all duration-200 opacity-0 group-focus:opacity-100 focus:opacity-100 group-hover:opacity-100"
                 ) {
                     (svg!(r#"<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 p-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>"#))
                 }
@@ -623,7 +631,7 @@ fn history_breadcrumbs() -> View<G> {
                                 View::empty()
                             } else {
                                 view! {
-                                    div(class = "font-black text-purple-500 h-4 w-4 mt-[0.07rem]") {
+                                    div(class = "font-black text-primary h-4 w-4 mt-[0.07rem]") {
                                         (svg!(r#"<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>"#))
                                     }
                                 }

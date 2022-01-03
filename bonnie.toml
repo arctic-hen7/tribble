@@ -8,7 +8,7 @@ dev.cmd = [
 dev.args = [ "example" ]
 dev.desc = "runs the cli with the provided options (this will execute in the `examples/` directory on the provided config file)"
 
-app.cmd = "concurrently --kill-others \"bonnie app export\" \"bonnie app build-tailwind\" \"bonnie app serve\""
+app.cmd = "concurrently --kill-others \"bonnie app build-tailwind\" \"bonnie app export\""
 app.desc = "runs `dev-old export` `app build-tailwind` and `app serve` simultaneously (needs `concurrently`)"
 app.subcommands.build-tailwind.cmd = [
     "cd packages/tribble-app",
@@ -21,14 +21,9 @@ app.subcommands.build-tailwind.subcommands.--prod.cmd = [
 
 app.subcommands.export.cmd = [
     "cd packages/tribble-app",
-    "find . -not -path \".perseus/*\" -not -path \"target/*\" | entr -s \"perseus export\""
+    "perseus export -sw"
 ]
-app.subcommands.export.desc = "exports the site, watching for changes"
-app.subcommands.serve.cmd = [
-    "cd packages/tribble-app",
-    "browser-sync start --server \".perseus/dist/exported\" --files .perseus/dist --no-open --port 8080 --extensions html"
-]
-app.subcommands.serve.desc = "serves the site's exported content"
+app.subcommands.export.desc = "exports the site and serves it, watching for changes"
 
 prep-wasm.cmd = [
     "rm -rf packages/tribble/.tribble",

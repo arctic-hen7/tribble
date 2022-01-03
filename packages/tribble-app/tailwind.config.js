@@ -14,6 +14,14 @@ module.exports = {
             xs: "475px",
             ...defaultTheme.screens,
         },
+        colors: {
+            primary: "#50587C",
+            transparent: colors.transparent,
+            neutral: colors.neutral,
+            red: colors.red,
+            bg: "#FFFFFF",
+            black: colors.black
+        }
    },
     plugins: [],
 };
