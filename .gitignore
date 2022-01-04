@@ -5,3 +5,6 @@ node_modules/
 tailwind.css
 # This is still included in the Cargo package
 .tribble/
+
+# A generated executable
+tribble
