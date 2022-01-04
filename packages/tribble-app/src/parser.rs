@@ -220,6 +220,11 @@ pub enum Endpoint {
         preamble: String,
         /// The formatted report. The UI will not allow the user to edit this, but will provide a copy button. Interpolation of form values is allowed here with `${form_id}` syntax.
         text: String,
+        /// The text of a button for sending teh user to wherever they'll report the issue.
+        dest_text: String,
+        /// A URL to send the user to so that they can report the issue. If the platform supports interpolating text to be sent
+        /// into the URL, you can do so by interpolating `%r` into this field.
+        dest_url: String,
     },
     /// An instructional endpoint, which tells the user to do something.
     Instructional(String),

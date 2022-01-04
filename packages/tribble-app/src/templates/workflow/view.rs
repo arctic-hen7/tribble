@@ -94,8 +94,8 @@ pub fn workflow_inner(
                 None => todo!("handle errors in pages (no such endpoint)")
             };
             match endpoint_props {
-                Endpoint::Report { preamble, text } => view! {
-                    RenderReportEndpoint(RenderReportEndpointProps { preamble: preamble.to_string(), text: text.to_string() })
+                Endpoint::Report { preamble, text, dest_text, dest_url } => view! {
+                    RenderReportEndpoint(RenderReportEndpointProps { preamble: preamble.to_string(), text: text.to_string(), dest_text: dest_text.to_string(), dest_url: dest_url.to_string() })
                 },
                 Endpoint::Instructional(text) => {
                     let text = text.to_string();
@@ -505,12 +505,19 @@ fn render_section(
 struct RenderReportEndpointProps {
     preamble: String,
     text: String,
+    dest_text: String,
+    dest_url: String,
 }
 
 /// Renders a report endpoint.
 #[component(RenderReportEndpoint<G>)]
 fn render_report_endpoint(
-    RenderReportEndpointProps { preamble, text }: RenderReportEndpointProps,
+    RenderReportEndpointProps {
+        preamble,
+        text,
+        dest_text,
+        dest_url,
+    }: RenderReportEndpointProps,
 ) -> View<G> {
     let ctx = use_context::<WorkflowCtx>();
     // Flatten the tags into one single vector
@@ -560,7 +567,6 @@ fn render_report_endpoint(
     view! {
         p(class = "mb-2") { (preamble) }
         // The report itself is preformatted
-        // TODO Make this copy button keyboard-accessible
         pre(class = "group overflow-x-auto break-words whitespace-pre-wrap", tabindex = "0") {
             div(class = "relative") {
                 button(
@@ -572,6 +578,19 @@ fn render_report_endpoint(
             }
             code(id = "tribble-report") {
                 (report_text)
+            }
+        }
+        // This lets the user go to an external URL for reporting their issue
+        a(
+            href = dest_url,
+            // Even if it's internal to the site, this should never be handled by the router
+            // Tribble is a separate system, so unless it's been plugin-augmented, this will always be outside our control
+            rel = "external",
+            class = "group inline-flex items-center p-5 text-lg shadow-md hover:shadow-lg transition-shadow duration-200 rounded-lg"
+        ) {
+            (dest_text)
+            div(class = "h-5 w-5 group-hover:ml-1 transition-all ease-in-out duration-200") {
+                (svg!(r#"<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>"#))
             }
         }
     }
