@@ -544,7 +544,7 @@ fn render_report_endpoint(
         interpolated_text,
         // We hide the tags away in internal details
         format!(
-            "<section>\n<details>Tribble internal data</details>\n\n{}\n\n</section>",
+            "<details>\n<summary>Tribble internal data</summary>\n\n{}\n\n</details>",
             encoded_tags
         )
     );
