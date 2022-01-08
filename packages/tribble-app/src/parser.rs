@@ -47,9 +47,6 @@ impl Config {
 /// The components of a workflow.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Workflow {
-    /// The tags supported for this page. These MUST NOT contains commas, or errors WILL occur outside of the Tribble interface, when attempting to automatically triage
-    /// generated reports!
-    pub tags: Vec<String>,
     /// The sections that the page can make use of.
     pub sections: HashMap<String, Section>,
     /// The section to start on, which must be a valid key in the `sections` map.

@@ -543,6 +543,7 @@ fn render_report_endpoint(
         "{}\n\n{}",
         interpolated_text,
         // We hide the tags away in internal details
+        // WARNING: If anything ever changes here, we need to update `getRequestedLabels` in the bot
         format!(
             "<details>\n<summary>Tribble internal data</summary>\n\n{}\n\n</details>",
             encoded_tags
