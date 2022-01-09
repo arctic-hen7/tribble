@@ -57,6 +57,12 @@ build.cmd = [
     "cargo build --release %%"
 ]
 
+schema.cmd = [
+    "cd packages/tribble-app",
+    "cargo run --features schema"
+]
+schema.desc = "builds the JSON schema"
+
 ci.subcommands.prep.cmd = [
     "cargo install wasm-pack perseus-cli",
     "rustup target add wasm32-unknown-unknown",
@@ -83,7 +89,7 @@ release.cmd = [
 ]
 release.desc = "releases a new version and pushes it to GitHub (note that the bot is entirely separate to this)"
 publish.cmd = [
-    "bonnie prep-wasm"
+    "bonnie prep-wasm",
     "cd packages/tribble",
     # We've got to allow uncommitted files to permit including `.tribble/`
     "cargo publish --allow-dirty"

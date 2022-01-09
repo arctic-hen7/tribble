@@ -19,3 +19,12 @@ base64 = "0.13"
 wasm-bindgen-futures = "0.4"
 futures = "0.3"
 perseus-size-opt = "0.1"
+schemars = { version = "0.8", optional = true }
+
+[features]
+schema = [ "schemars" ]
+
+[[bin]]
+name = "schema"
+path = "src/bin/schema.rs"
+required-features = [ "schema" ]

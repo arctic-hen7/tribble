@@ -54,3 +54,20 @@ jobs:
                   asset_name: tribble-musl-amd64
                   tag: ${{ github.ref }}
                   body: "The below binaries/executables are for the Tribble CLI. See [CHANGELOG.md](./CHANGELOG.md) for details of the changes in this version."
+    # Builds the JSON schema
+    build-schema:
+        runs-on: ubuntu-latest # We cross-compile from Ubuntu
+        steps:
+            - uses: actions/checkout@v2
+            - run: cargo install bonnie
+            # We don't need to run the usual CI preparation for this one
+            - name: Build
+              run: bonnie schema
+            - name: Release schema
+              uses: svenstaro/upload-release-action@v2
+              with:
+                  repo_token: ${{ secrets.GITHUB_TOKEN }}
+                  file: schema.json
+                  asset_name: tribble-schema.json
+                  tag: ${{ github.ref }}
+                  body: "The below binaries/executables are for the Tribble CLI. See [CHANGELOG.md](./CHANGELOG.md) for details of the changes in this version."

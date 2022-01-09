@@ -1,4 +1,6 @@
 use crate::errors::ParserError;
+#[cfg(feature = "schema")]
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, fs::File, io::BufReader};
 
@@ -8,6 +10,7 @@ fn default_input_err_msg() -> String {
 }
 
 /// The possible types of configuration files (this allows main files to be different from internationalization files).
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 pub enum Config {
@@ -46,6 +49,7 @@ impl Config {
 
 /// The components of a workflow.
 #[derive(Serialize, Deserialize, Debug, Clone)]
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
 pub struct Workflow {
     /// The sections that the page can make use of.
     pub sections: HashMap<String, Section>,
@@ -58,6 +62,7 @@ pub struct Workflow {
 pub type Section = Vec<SectionElem>;
 /// The possible parts of a section.
 #[derive(Serialize, Deserialize, Debug, Clone)]
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[serde(untagged)]
 pub enum SectionElem {
     /// Simple text to be displayed to the user. If this begins with a `<` that's unescaped, it will be treated as arbitrary HTML, and will be directly injected into the page. In that
@@ -76,6 +81,7 @@ pub enum SectionElem {
     Input(InputSectionElem),
 }
 /// The properties of an input element. This needs to be passed around, so it's broken out of the `SectionElem` input.
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct InputSectionElem {
     /// The input's ID, which can be used to reference its value later for interpolation in a formatted report.
@@ -97,6 +103,7 @@ pub struct InputSectionElem {
     pub input: Input,
 }
 /// The different types of inputs.
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 pub enum Input {
@@ -117,6 +124,7 @@ pub enum Input {
     },
 }
 /// The possible types an input can have.
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(tag = "type")]
 #[serde(rename_all = "kebab-case")]
@@ -194,6 +202,7 @@ impl ToString for InputType {
     }
 }
 /// The properties for an option for a select element. The text of this MUST NOT contain commas, otherwise all sorts of runtime errors WILL occur!
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 pub enum SelectOption {
@@ -207,6 +216,7 @@ pub enum SelectOption {
     },
 }
 /// The possible endpoint types (endpoints are sections that allow the user to exit the contribution process).
+#[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 pub enum Endpoint {
