@@ -70,3 +70,22 @@ check.cmd = [
     "cargo clippy --all"
 ]
 check.desc = "checks code for compile and formatting errors"
+
+release.cmd = [
+    "git checkout stable",
+    "git merge main",
+    # We allow specifying a custom version for pre-releases
+    "standard-version --sign --commit-all %%",
+    "git push --follow-tags origin stable",
+    "git checkout main",
+    "git merge stable",
+    "git push origin main",
+]
+release.desc = "releases a new version and pushes it to GitHub (note that the bot is entirely separate to this)"
+publish.cmd = [
+    "bonnie prep-wasm"
+    "cd packages/tribble",
+    # We've got to allow uncommitted files to permit including `.tribble/`
+    "cargo publish --allow-dirty"
+]
+publish.desc = "publishes the CLI to crates.io (`bonnie release` deploys the binaries on GitHub)"
