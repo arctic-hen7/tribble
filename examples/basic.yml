@@ -1,14 +1,5 @@
 workflows:
   test:
-    # tags:
-    #   - "C:bug"
-    #   - "C:enhancement"
-    #   - "C:performance"
-    #   - "C:docs"
-    #   - "A:backend"
-    #   - "A:cli"
-    #   - "A:server"
-    #   - "bool_selected"
     sections:
       Start:
         - "Hello, and welcome to the first stage of your contribution journey with Tribble!"
