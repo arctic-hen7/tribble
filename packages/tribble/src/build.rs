@@ -19,10 +19,10 @@ macro_rules! copy_dir {
 }
 
 /// Builds the user's configuration file into a fully-fledged app. This mostly consists of file juggling.
-pub fn build(dir: PathBuf) -> Result<i32, BuildError> {
+pub async fn build(dir: PathBuf) -> Result<i32, BuildError> {
     let dir = dir.join(".tribble");
     // Run the static exporting code in the app
-    match tribble_app::export() {
+    match tribble_app::export().await {
         Ok(()) => (),
         Err(err) => return Err(BuildError::ExportFailed { source: err }),
     };
