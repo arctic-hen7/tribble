@@ -89,9 +89,7 @@ This is the structure of a Tribble configuration file, which has one top-level p
 
 With that file ready, now run `tribble serve` in the same directory, which will immediately (well, 37 milliseconds by our tests) generate a website for your app, which you can see at <http://localhost:8080>. If you want to change the host or port of that, you can run the command with the `--host` and `--port` flags as appropriate.
 
-And that's how Tribble works!
-
-API docs TODO.
+And that's how Tribble works! You can see the full API documentation [here](https://arctic-hen7.github.io/tribble) (auto-generated from the Rust code).
 
 ### Internationalization
 
