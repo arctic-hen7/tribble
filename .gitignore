@@ -4,6 +4,8 @@ node_modules/
 .perseus/
 tailwind.css
 schema.json
+# This contains API docs
+docs/
 # This is still included in the Cargo package
 .tribble/
 
