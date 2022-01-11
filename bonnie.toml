@@ -63,6 +63,7 @@ schema.cmd = [
 ]
 schema.desc = "builds the JSON schema"
 schema.subcommands.html.cmd = [
+    "mkdir -p docs/",
     "generate-schema-doc --config footer_show_time=false --expand-buttons --minify schema.json docs/",
     "mv docs/schema.html docs/index.html",
     "find docs -name index.html -exec sed -i -e 's/<title>Config<\\/title>/<title>Tribble API Documentation<\\/title>/g' {} \\;"
