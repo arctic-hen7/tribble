@@ -41,6 +41,9 @@ pub enum Subcommand {
         /// The name of the directory to output Tribble to
         #[clap(short, long, default_value = "pkg")]
         output: String,
+        /// The relative path under which you intend to host Tribble (e.g. `/tribble`). If you're hosting Tribble at the root of a website, set this to `/`
+        #[clap(short, long)]
+        path: String,
     },
     /// Deletes the `.tribble/` directory in the case of a corruption
     Clean,

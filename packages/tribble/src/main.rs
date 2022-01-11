@@ -146,7 +146,9 @@ async fn core(dir: PathBuf) -> Result<i32, Error> {
             delete_tribble_dir(dir)?;
             0
         }
-        Subcommand::Deploy { output } => {
+        Subcommand::Deploy { output, path } => {
+            // Set the base path in Perseus based on `--path`
+            env::set_var("PERSEUS_BASE_PATH", path);
             // Build the app
             let build_exit_code = crate::build::build(dir.clone())?;
             if build_exit_code != 0 {
