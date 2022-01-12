@@ -101,8 +101,10 @@ replace-versions.args = [ "old_version", "new_version" ]
 
 publish.cmd = [
     "bonnie prep-wasm",
-    "cd packages/tribble",
+    "cd packages/tribble-app",
+    "cargo publish %%",
+    "cd ../tribble",
     # We've got to allow uncommitted files to permit including `.tribble/`
-    "cargo publish --allow-dirty"
+    "cargo publish --allow-dirty %%"
 ]
 publish.desc = "publishes the CLI to crates.io (`bonnie release` deploys the binaries on GitHub)"

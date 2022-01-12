@@ -11,7 +11,7 @@ include = [
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tribble-app = { path = "../tribble-app" } # TODO Add version here before publishing
+tribble-app = { path = "../tribble-app", version = "0.1.0-rc.1" }
 perseus = { version = "0.3", features = [ "server-side" ] } # We need to enable the `server-side` feature
 thiserror = "1"
 fmterr = "0.1"
