@@ -42,9 +42,15 @@ body {
 }
 /* This is for the placeholder `span` */
 .custom-input span:nth-child(2) {
-    @apply absolute ml-2 top-0 left-0 w-full flex items-center bg-transparent text-neutral-500;
+    @apply absolute pl-2 top-0 left-0 w-full flex items-center bg-transparent text-neutral-500 max-w-max;
     /* The transition for moving the placeholder up */
     @apply transition-all duration-200 ease-in-out;
+}
+/* This prevents text in `textarea`s from riding underneath the placeholder (inspired by https://stackoverflow.com/a/67334114/11571888) */
+.custom-input:before {
+    content: '';
+    /* We use different padding units so that we can match exactly what we need (right is for the scrollbar) */
+    @apply absolute bg-white h-6 w-full pl-1 pr-[14px] pt-[1px] rounded-lg bg-clip-content top-[1px] left-[1px];
 }
 /* The heights are different for the `input` and `select` from the `textarea` */
 .custom-input input + span:nth-child(2),
