@@ -95,6 +95,10 @@ release.cmd = [
     "git push origin main",
 ]
 release.desc = "releases a new version and pushes it to GitHub (note that the bot is entirely separate to this)"
+
+replace-versions.cmd = "find . \\( \\( -name \"*Cargo.toml\" -or -name \"*Cargo.toml.example\" -or -name \"*.md\" \\) -not -name \"CHANGELOG.md\" -not -path \"./target/*\" -not -path \"*.perseus*\" -not -path \"*.tribble*\" \\) -exec sed -i -e 's/%old_version/%new_version/g' {} \\;"
+replace-versions.args = [ "old_version", "new_version" ]
+
 publish.cmd = [
     "bonnie prep-wasm",
     "cd packages/tribble",
