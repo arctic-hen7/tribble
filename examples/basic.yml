@@ -2,7 +2,7 @@ workflows:
   test:
     sections:
       Start:
-        - "Hello, and welcome to the first stage of your contribution journey with Tribble!"
+        - "Hello, and welcome to the first stage of your contribution journey with [Tribble](https://github.com/arctic-hen7/tribble)! `This is some code.`"
         - { text: "I want to report a bug", link: "Report Bug", tags: [ "C:bug" ] }
         - { text: "I want to suggest an enhancement", link: "Request Enhancement", tags: [ "C:enhancement" ] }
         - { text: "I'd like to add something to the docs", link: "endpoint:Documentation", tags: [ "C:docs" ] }
@@ -21,7 +21,7 @@ workflows:
     index: Start
     endpoints:
       Bug:
-        preamble: "Thank you very much for reporting this bug, we'll get on it right away!"
+        preamble: "Thank you very much for reporting this bug, [we'll](https://example.com) get on it right away!"
         text: "This report is reporting a bug. Description: ${bug_description}. Boolean: ${bool}"
         dest_text: "Report on GitHub"
         dest_url: "#"
@@ -30,4 +30,4 @@ workflows:
         text: "This report is requesting an enhancement to the ${feature_area}."
         dest_text: "Report on GitHub"
         dest_url: "#"
-      Documentation: "You can contribute to the docs by doing foobar!"
+      Documentation: "You can contribute to the docs by doing *foobar*!"

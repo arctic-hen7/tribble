@@ -1,5 +1,6 @@
 mod get_build_paths;
 mod get_build_state;
+mod parse_md;
 mod view;
 
 use perseus::{Html, Template};

@@ -1,4 +1,5 @@
 use super::get_build_state::WorkflowProps;
+use super::parse_md::parse_md_to_html;
 use crate::parser::{
     Endpoint, Input, InputSectionElem, InputType, Section, SectionElem, SelectOption,
 };
@@ -98,9 +99,9 @@ pub fn workflow_inner(
                     RenderReportEndpoint(RenderReportEndpointProps { preamble: preamble.to_string(), text: text.to_string(), dest_text: dest_text.to_string(), dest_url: dest_url.to_string() })
                 },
                 Endpoint::Instructional(text) => {
-                    let text = text.to_string();
+                    let text = parse_md_to_html(text);
                     view! {
-                        p { (text) }
+                        div(class = "markdown", dangerously_set_inner_html = &text) {}
                     }
                 }
             }
@@ -158,9 +159,9 @@ fn render_section(
             .map(cloned!(ctx => move |section_elem| {
                 let rendered = match section_elem {
                     SectionElem::Text(text) => {
-                        let text = text.clone();
+                        let text = parse_md_to_html(text);
                         view! {
-                            p { (text) }
+                            div(class = "markdown", dangerously_set_inner_html = &text) {}
                         }
                     },
                     SectionElem::Progression { text, link, tags } => {
@@ -520,6 +521,7 @@ fn render_report_endpoint(
     }: RenderReportEndpointProps,
 ) -> View<G> {
     let ctx = use_context::<WorkflowCtx>();
+    let preamble = parse_md_to_html(&preamble);
     // Flatten the tags into one single vector
     let mut flattened_tags: Vec<String> = Vec::new();
     let history = ctx.history.get();
@@ -566,7 +568,7 @@ fn render_report_endpoint(
     });
 
     view! {
-        p(class = "mb-2") { (preamble) }
+        div(class = "markdown mb-2", dangerously_set_inner_html = &preamble) {}
         // The report itself is preformatted
         pre(class = "group overflow-x-auto break-words whitespace-pre-wrap", tabindex = "0") {
             div(class = "relative") {

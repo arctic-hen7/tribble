@@ -16,11 +16,13 @@ module.exports = {
         },
         colors: {
             primary: "#50587C",
+            dark: "#282C3E",
             transparent: colors.transparent,
             neutral: colors.neutral,
             red: colors.red,
             bg: "#FFFFFF",
-            black: colors.black
+            black: colors.black,
+            white: colors.white
         }
    },
     plugins: [],

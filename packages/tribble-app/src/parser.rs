@@ -10,6 +10,7 @@ fn default_input_err_msg() -> String {
 }
 
 /// The possible types of configuration files (this allows main files to be different from internationalization files).
+// Note: Markdown is supported in three places: an instructional endpoint, the preamble of a report endpoint, and a text element in a section.
 #[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
@@ -21,7 +22,7 @@ pub enum Config {
     },
     /// A configuration file for a single language.
     Language {
-        /// The error message when a user doesn't fill out a mandatory field. This is allowed to enable i18n at an arbitrary scale.
+        /// The error message when a user doesn't fill out a mandatory field. This is allowed to enable i18n at an arbitrary scale. This field does not support Markdown.
         #[serde(default = "default_input_err_msg")]
         input_err_msg: String,
         /// All the workflow in this Tribble instance. Each workflow is a separate contribution experience, and multiple workflows are generally best suited for things like separate products.
@@ -65,12 +66,11 @@ pub type Section = Vec<SectionElem>;
 #[cfg_attr(feature = "schema", derive(JsonSchema))]
 #[serde(untagged)]
 pub enum SectionElem {
-    /// Simple text to be displayed to the user. If this begins with a `<` that's unescaped, it will be treated as arbitrary HTML, and will be directly injected into the page. In that
-    /// case, it is assumed to be sanitized.
+    /// Simple text to be displayed to the user. Markdown is supported here, and this will be rendered to HTML to be interpolated into the page.
     Text(String),
     /// A progression option for moving to another section.
     Progression {
-        /// The text to display to the user.
+        /// The text to display to the user. This does not support Markdown, as it goes inside an HTML `button`.
         text: String,
         /// The name of the section to navigate to. If this is prefixed with `endpoint:`, it will navigate to an endpoint instead of a section.
         link: String,
@@ -86,7 +86,7 @@ pub enum SectionElem {
 pub struct InputSectionElem {
     /// The input's ID, which can be used to reference its value later for interpolation in a formatted report.
     pub id: String,
-    /// The label for the input.
+    /// The label for the input. This does not support Markdown.
     pub label: String,
     /// Whether or not the input is optional.
     #[serde(default)]
@@ -209,7 +209,7 @@ pub enum SelectOption {
     /// A select element that simply has a value.
     Simple(String),
     WithTags {
-        /// The displayed text of the option.
+        /// The displayed text of the option. This does not support Markdown.
         text: String,
         /// A list of tags that should be accumulated if this option is selected. If multiple options can be selected and there are duplications, tags will only be assigned once.
         tags: Vec<String>,
@@ -223,16 +223,17 @@ pub enum Endpoint {
     /// A report endpoint, which gives the user a formatted report in Markdown to send to the project.
     // TODO Add functionality to actually send the report somewhere
     Report {
-        /// The preamble text to display before the actual formatted report.
+        /// The preamble text to display before the actual formatted report. Markdown can be used here.
         preamble: String,
-        /// The formatted report. The UI will not allow the user to edit this, but will provide a copy button. Interpolation of form values is allowed here with `${form_id}` syntax.
+        /// The formatted report. The UI will not allow the user to edit this, but will provide a copy button. Interpolation of form values is allowed here with `${form_id}` syntax. This
+        /// should be written in the appropriate templating language for your issue reporting system (e.g. Markdown for GitHub issues), and will be displayed as a raw, pre-formatted string.
         text: String,
-        /// The text of a button for sending teh user to wherever they'll report the issue.
+        /// The text of a button for sending teh user to wherever they'll report the issue. This does not support Markdown.
         dest_text: String,
         /// A URL to send the user to so that they can report the issue. If the platform supports interpolating text to be sent
         /// into the URL, you can do so by interpolating `%r` into this field.
         dest_url: String,
     },
-    /// An instructional endpoint, which tells the user to do something.
+    /// An instructional endpoint, which tells the user to do something. This supports Markdown.
     Instructional(String),
 }

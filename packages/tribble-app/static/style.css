@@ -111,3 +111,53 @@ div.select-wrapper:not(div.select-multiple)::after {
     @apply bg-primary;
     @apply after:translate-x-4;
 }
+
+/* Markdown styling to combat Tailwind's removal of all default classes */
+.markdown > * + *,
+.markdown li + li,
+.markdown li > p + p {
+    @apply mt-2;
+}
+.markdown stong,
+.markdown bold {
+    @apply font-black;
+}
+.markdown a {
+    @apply text-primary hover:text-dark transition-colors duration-200 underline;
+}
+.markdown h1 {
+    @apply text-4xl mt-2;
+}
+.markdown h2 {
+    @apply text-3xl;
+}
+.markdown h3 {
+    @apply text-2xl;
+}
+.markdown h4 {
+    @apply text-xl
+}
+.markdown h5 {
+    @apply text-lg;
+}
+.markdown h6 {
+    @apply leading-tight;
+}
+.markdown :not(pre) code {
+    @apply rounded-lg p-1 bg-neutral-200;
+}
+.markdown pre {
+    @apply rounded-lg overflow-x-auto;
+}
+.markdown blockquote {
+    @apply pl-4 italic border-l-4;
+}
+.markdown ul {
+    @apply list-disc pl-5 sm:pl-10;
+}
+.markdown ol {
+    @apply list-decimal pl-5 sm:pl-10;
+}
+.markdown details :not(summary) {
+    @apply ml-6;
+}
