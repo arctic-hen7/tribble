@@ -2,6 +2,13 @@
 name = "tribble-app"
 version = "0.1.0-rc.1"
 edition = "2018"
+description = "The Perseus app that underlies Tribble."
+authors = ["arctic_hen7 <arctic_hen7@pm.me>"]
+license = "MIT"
+repository = "https://github.com/arctic-hen7/tribble"
+readme = "../../README.md"
+keywords = ["perseus", "template-engine"]
+categories = ["template-engine", "wasm", "internationalization", "web-programming", "gui"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
