@@ -119,11 +119,13 @@ pub fn workflow_inner(
     view! {
         // We set the caret color at the top-level (changes the outlines of form inputs, cursor color, etc.)
         div(class = "flex justify-center xs:items-center w-full h-full") {
-            div(class = "section-container xs:shadow-md xs:rounded-lg text-center flex-col", id = "section-content") {
+            div(class = "section-container xs:shadow-md xs:rounded-lg text-center flex-col md:w-[48rem]", id = "section-content") {
                 HistoryBreadcrumbs()
                 // We want to alert screenreaders that this entire section can be swapped out for new content
-                main(class = "section-content", aria-live = "assertive", aria-atomic = true) {
-                    (*page.get())
+                div(class = "w-full flex flex-col justify-center") {
+                    main(class = "section-content max-w-max self-center", aria-live = "assertive", aria-atomic = true) {
+                        (*page.get())
+                    }
                 }
             }
         }
