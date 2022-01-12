@@ -640,15 +640,15 @@ fn history_breadcrumbs() -> View<G> {
                             view! {
                                 button(
                                     on:click = click_handler,
-                                    class = "p-0.5 xs:p-1 text-neutral-500 hover:text-black transition-colors duration-200 rounded-md",
+                                    class = "p-0.5 xs:p-1 text-neutral-500 hover:text-black transition-colors duration-200 rounded-md text-left",
                                 ) { (display_name) }
                             }
                         };
                         view! {
-                            li(class = "mx-1") {
+                            li(class = "mx-1 text-left") {
                                 (item_contents)
                             }
-                            // If this isn't hte last element, add a separator
+                            // If this isn't the last element, add a separator
                             (if i == history_len {
                                 View::empty()
                             } else {
@@ -668,10 +668,10 @@ fn history_breadcrumbs() -> View<G> {
     }));
 
     view! {
+        // BUG This can be ugly with very long section names, it's be nicer if all the text just flowed fully
         nav(aria-live = "assertive") {
             // We center vertically so that the text separators stay in line with the button padding
-            ol(class = "w-full flex items-center text-sm") {
-                // TODO Compress this to the first and last with dots based on screen size
+            ol(class = "w-full flex flex-wrap items-center text-sm text-left") {
                 (*sections_list.get())
             }
         }
