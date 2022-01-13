@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0-rc.2](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.1...v0.1.0-rc.2) (2022-01-13)
+
+
+### Features
+
+* added markdown support ([e9e19a6](https://github.com/arctic-hen7/tribble/commit/e9e19a668bd666a384ac8b48cfd9b6006e674859))
+
+
+### Bug Fixes
+
+* made breadcrumbs break over multiple lines if needed ([93a195b](https://github.com/arctic-hen7/tribble/commit/93a195bf5450637b09b4c893e5094d90c506fb98))
+* made width/padding more stable ([181e786](https://github.com/arctic-hen7/tribble/commit/181e78639a9d9fb45e95075a6f3f89b27f25609c))
+* prevented text from riding underneath label ([76746e3](https://github.com/arctic-hen7/tribble/commit/76746e3f61ef54a14579061f432cf56773184f50))
+
 ## 0.1.0-rc.1 (2022-01-12)
 
 
