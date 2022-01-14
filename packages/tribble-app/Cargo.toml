@@ -28,6 +28,7 @@ futures = "0.3"
 perseus-size-opt = "0.1"
 schemars = { version = "0.8", optional = true }
 pulldown-cmark = "0.8"
+urlencoding = "2"
 
 [features]
 schema = [ "schemars" ]
