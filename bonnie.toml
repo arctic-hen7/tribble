@@ -104,6 +104,7 @@ publish.cmd = [
     "cd packages/tribble-app",
     "cargo publish %%",
     "cd ../tribble",
+    "sleep 10",
     # We've got to allow uncommitted files to permit including `.tribble/`
     "cargo publish --allow-dirty %%"
 ]
