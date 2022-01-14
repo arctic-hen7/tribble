@@ -1,5 +1,6 @@
 workflows:
   test:
+    title: "Test Workflow"
     sections:
       Start:
         - "Hello, and welcome to the first stage of your contribution journey with [Tribble](https://github.com/arctic-hen7/tribble)! `This is some code.`"
@@ -29,5 +30,5 @@ workflows:
         preamble: "Thanks for the request, we'll take a look!"
         text: "This report is requesting an enhancement to the ${feature_area}."
         dest_text: "Report on GitHub"
-        dest_url: "#"
+        dest_url: "#?body=%s"
       Documentation: "You can contribute to the docs by doing *foobar*!"

@@ -52,6 +52,8 @@ impl Config {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[cfg_attr(feature = "schema", derive(JsonSchema))]
 pub struct Workflow {
+    /// The title of the page dedicated to this workflow (appears in tabs).
+    pub title: String,
     /// The sections that the page can make use of.
     pub sections: HashMap<String, Section>,
     /// The section to start on, which must be a valid key in the `sections` map.
@@ -231,7 +233,7 @@ pub enum Endpoint {
         /// The text of a button for sending teh user to wherever they'll report the issue. This does not support Markdown.
         dest_text: String,
         /// A URL to send the user to so that they can report the issue. If the platform supports interpolating text to be sent
-        /// into the URL, you can do so by interpolating `%r` into this field.
+        /// into the URL, you can do so by interpolating `%s` into this field.
         dest_url: String,
     },
     /// An instructional endpoint, which tells the user to do something. This supports Markdown.

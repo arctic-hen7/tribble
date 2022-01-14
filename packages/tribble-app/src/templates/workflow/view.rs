@@ -553,6 +553,8 @@ fn render_report_endpoint(
             encoded_tags
         )
     );
+    // Interpolate that into the destination URL if needed
+    let dest_url = dest_url.replace("%s", &report_text);
 
     let copy_handler = cloned!(report_text => move |_| {
         wasm_bindgen_futures::spawn_local(cloned!(report_text => async move {
