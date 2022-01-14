@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0-rc.4](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.3...v0.1.0-rc.4) (2022-01-14)
+
+
+### Bug Fixes
+
+* properly encoded interpolated dest urls ([bf86ce6](https://github.com/arctic-hen7/tribble/commit/bf86ce62940927bc0c7be4bff89022c640f1a928))
+
 ## [0.1.0-rc.3](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.2...v0.1.0-rc.3) (2022-01-14)
 
 
