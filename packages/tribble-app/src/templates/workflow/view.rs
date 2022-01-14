@@ -250,7 +250,7 @@ fn render_section(
                             ) {
                                 (text)
                                 div(class = "h-5 w-5 group-hover:ml-1 transition-all ease-in-out duration-200") {
-                                    (svg!(r#"<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>"#))
+                                    (svg!(r#"<svg aria-hidden=true xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>"#))
                                 }
                             }
                         }
@@ -574,13 +574,13 @@ fn render_report_endpoint(
     view! {
         div(class = "markdown mb-2", dangerously_set_inner_html = &preamble) {}
         // The report itself is preformatted
-        pre(class = "group overflow-x-auto break-words whitespace-pre-wrap", tabindex = "0") {
+        pre(class = "group overflow-x-auto break-words whitespace-pre-wrap bg-neutral-200 dark:bg-neutral-700 rounded-lg p-2 mb-1", tabindex = "0") {
             div(class = "relative") {
                 button(
                     on:click = copy_handler,
-                    class = "absolute top-0 right-0 mt-1 mr-1 rounded-md invisible focus:visible group-focus:visible group-hover:visible bg-neutral-200 hover:bg-neutral-300 text-black transition-all duration-200 opacity-0 group-focus:opacity-100 focus:opacity-100 group-hover:opacity-100"
+                    class = "absolute top-0 right-0 mt-1 mr-1 rounded-md invisible focus:visible group-focus:visible group-hover:visible bg-neutral-200 dark:bg-neutral-700 border border-neutral-100 hover:border-neutral-200 hover:bg-neutral-300 dark:hover:bg-neutral-600 dark:border-neutral-600 dark:hover:border-neutral-600 text-black dark:text-neutral-100 transition-all duration-200 opacity-0 group-focus:opacity-100 focus:opacity-100 group-hover:opacity-100"
                 ) {
-                    (svg!(r#"<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 p-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>"#))
+                    (svg!(r#"<svg aria-hiden=true xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 p-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>"#))
                 }
             }
             code(id = "tribble-report") {
@@ -597,7 +597,7 @@ fn render_report_endpoint(
         ) {
             (dest_text)
             div(class = "h-5 w-5 group-hover:ml-1 transition-all ease-in-out duration-200") {
-                (svg!(r#"<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>"#))
+                (svg!(r#"<svg aria-hidden=true xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>"#))
             }
         }
     }
@@ -644,7 +644,7 @@ fn history_breadcrumbs() -> View<G> {
                             view! {
                                 button(
                                     on:click = click_handler,
-                                    class = "p-0.5 xs:p-1 text-neutral-500 hover:text-black transition-colors duration-200 rounded-md text-left",
+                                    class = "p-0.5 xs:p-1 text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors duration-200 rounded-md text-left",
                                 ) { (display_name) }
                             }
                         };
@@ -657,8 +657,8 @@ fn history_breadcrumbs() -> View<G> {
                                 View::empty()
                             } else {
                                 view! {
-                                    div(class = "font-black text-primary h-4 w-4 mt-[0.07rem]") {
-                                        (svg!(r#"<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>"#))
+                                    div(class = "font-black text-primary dark:text-light h-4 w-4 mt-[0.07rem]") {
+                                        (svg!(r#"<svg aria-hidden=true xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>"#))
                                     }
                                 }
                             })
