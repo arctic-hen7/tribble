@@ -123,7 +123,7 @@ pub fn workflow_inner(
                 HistoryBreadcrumbs()
                 // We want to alert screenreaders that this entire section can be swapped out for new content
                 div(class = "w-full flex flex-col justify-center") {
-                    main(class = "section-content max-w-max self-center", aria-live = "assertive", aria-atomic = true) {
+                    main(class = "section-content max-w-full self-center", aria-live = "assertive", aria-atomic = true) {
                         (*page.get())
                     }
                 }
