@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0-rc.3](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.2...v0.1.0-rc.3) (2022-01-14)
+
+
+### Features
+
+* added titles and dest interpolation ([287129f](https://github.com/arctic-hen7/tribble/commit/287129fb7b405e98b66ddb03ae4c876e5f7e1f3b))
+
 ## [0.1.0-rc.2](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.1...v0.1.0-rc.2) (2022-01-13)
 
 
