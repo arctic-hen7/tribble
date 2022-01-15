@@ -1,6 +1,6 @@
 [package]
 name = "tribble"
-version = "0.1.0-rc.4"
+version = "0.1.0-rc.5"
 edition = "2021"
 include = [
     "src/",
@@ -18,7 +18,7 @@ categories = ["command-line-utilities", "development-tools", "internationalizati
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tribble-app = { path = "../tribble-app", version = "0.1.0-rc.4" }
+tribble-app = { path = "../tribble-app", version = "0.1.0-rc.5" }
 perseus = { version = "0.3", features = [ "server-side" ] } # We need to enable the `server-side` feature
 thiserror = "1"
 fmterr = "0.1"

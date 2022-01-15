@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0-rc.5](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.4...v0.1.0-rc.5) (2022-01-15)
+
+
+### Features
+
+* added dark mode ([4b9fbdc](https://github.com/arctic-hen7/tribble/commit/4b9fbdca0ba96fd035dbb634442ece5af6feba75))
+
+
+### Bug Fixes
+
+* fixed `pre` overflows ([64ff182](https://github.com/arctic-hen7/tribble/commit/64ff182be283cb6f978add157bc8609bda798452))
+* fixed overflowing vertical centering ([998cfaa](https://github.com/arctic-hen7/tribble/commit/998cfaa3ed2f418303d983fad1cdef51f3d28e03))
+
 ## [0.1.0-rc.4](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.3...v0.1.0-rc.4) (2022-01-14)
 
 
