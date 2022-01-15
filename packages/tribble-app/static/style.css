@@ -2,16 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    min-height: 100%;
-    height: 100vh;
-    @apply bg-bg dark:bg-bgdark dark:text-white;
-}
-.__perseus_content {
+body, #root, .__perseus_content {
     min-height: 100%;
     min-width: 100%;
     height: 100vh;
-    position: absolute;
+    @apply bg-bg dark:bg-bgdark dark:text-white;
 }
 
 /* This stores the content of a section */

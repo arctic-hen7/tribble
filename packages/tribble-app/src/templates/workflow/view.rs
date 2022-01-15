@@ -118,8 +118,9 @@ pub fn workflow_inner(
 
     view! {
         // We set the caret color at the top-level (changes the outlines of form inputs, cursor color, etc.)
-        div(class = "flex justify-center xs:items-center w-full h-full") {
-            div(class = "section-container xs:shadow-md xs:rounded-lg text-center flex-col md:w-[48rem]", id = "section-content") {
+        div(class = "flex justify-center w-full min-h-full py-2 xs:py-6 sm:py-8 md:py-16") {
+            // TODO Top margins
+            div(class = "section-container xs:shadow-md xs:rounded-lg text-center flex-col md:w-[48rem] m-auto", id = "section-content") {
                 HistoryBreadcrumbs()
                 // We want to alert screenreaders that this entire section can be swapped out for new content
                 div(class = "w-full flex flex-col justify-center") {
