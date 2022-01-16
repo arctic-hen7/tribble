@@ -256,7 +256,7 @@ fn render_section(
                             }
                         }
                     },
-                    SectionElem::Input(input_props @ InputSectionElem { id, default, label, input, optional: _ }) => {
+                    SectionElem::Input(input_props @ InputSectionElem { id, default, label, input, optional }) => {
                         // If we've moved back through the history, there may be records for this input (which we should autofill)
                         let mut form_values_map = (*form_values.get()).clone();
                         let show_err = Signal::new(false);
@@ -298,6 +298,13 @@ fn render_section(
                             }
                         }));
 
+                        // We render the asterisk for required values based on a class
+                        let label_class = if !optional {
+                            "input-required"
+                        } else {
+                            ""
+                        };
+
                         let input_rendered = match input {
                             Input::Text { input_type } => {
                                 // We make all the placeholders empty because that allows the CSS `:placeholder-shown` selector to work
@@ -307,7 +314,7 @@ fn render_section(
                                         // We want to keep the integrity of the page, so it's only resizeable in the y-direction
                                         label(class = "custom-input") {
                                             textarea(bind:value = input_value, class = "resize-y", placeholder = "") { (default) }
-                                            span() { (label) }
+                                            span(class = label_class) { (label) }
                                         }
                                         ((*err_label.get()).clone())
                                     },
@@ -316,28 +323,28 @@ fn render_section(
                                         (Some(min), Some(max)) => view! {
                                             label(class = "custom-input") {
                                                 input(bind:value = input_value, type = "number", min = min, max = max, value = default, id = id, placeholder = "") {}
-                                                span() { (label) }
+                                                span(class = label_class) { (label) }
                                             }
                                             ((*err_label.get()).clone())
                                         },
                                         (Some(min), None) => view! {
                                             label(class = "custom-input") {
                                                 input(bind:value = input_value, type = "number", min = min, value = default, id = id, placeholder = "") {}
-                                                span() { (label) }
+                                                span(class = label_class) { (label) }
                                             }
                                             ((*err_label.get()).clone())
                                         },
                                         (None, Some(max)) => view! {
                                             label(class = "custom-input") {
                                                 input(bind:value = input_value, type = "number", max = max, value = default, id = id, placeholder = "") {}
-                                                span() { (label) }
+                                                span(class = label_class) { (label) }
                                             }
                                             ((*err_label.get()).clone())
                                         },
                                         (None, None) => view! {
                                             label(class = "custom-input") {
                                                 input(bind:value = input_value, type = "number", value = default, id = id, placeholder = "") {}
-                                                span() { (label) }
+                                                span(class = label_class) { (label) }
                                             }
                                             ((*err_label.get()).clone())
                                         },
@@ -349,7 +356,7 @@ fn render_section(
                                             // For a range, the min/max are mandatory
                                             label(class = "custom-input") {
                                                 input(bind:value = input_value, type = "range", min = min, max = max, value = default, id = id, placeholder = "") {}
-                                                span() { (label) }
+                                                span(class = label_class) { (label) }
                                             }
                                             ((*err_label.get()).clone())
                                         }
@@ -373,7 +380,7 @@ fn render_section(
                                         }));
                                         view! {
                                             label(class = "switch") {
-                                                span() { (label) }
+                                                span(class = label_class) { (label) }
                                                 // We need to move the keyboard accessibility from the `input` to the `span` that will actually hold the switch
                                                 input(type = "checkbox", bind:checked = checked.clone(), id = id, tabindex = "-1") {}
                                                 span(role = "checkButton", tabindex = "0", on:keydown = cloned!(checked => move |ev: web_sys::Event| {
@@ -392,7 +399,7 @@ fn render_section(
                                         view! {
                                             label(class = "custom-input") {
                                                 input(bind:value = input_value, type = input_type, value = default, id = id, placeholder = "") {}
-                                                span() { (label) }
+                                                span(class = label_class) { (label) }
                                             }
                                             ((*err_label.get()).clone())
                                         }
@@ -454,7 +461,7 @@ fn render_section(
                                                     (opts_rendered)
                                                 }
                                             }
-                                            span() { (label) }
+                                            span(class = label_class) { (label) }
                                         }
                                         ((*err_label.get()).clone())
                                     },
@@ -479,7 +486,7 @@ fn render_section(
                                                     (opts_rendered)
                                                 }
                                             }
-                                            span() { (label) }
+                                            span(class = label_class) { (label) }
                                         }
                                         ((*err_label.get()).clone())
                                     }

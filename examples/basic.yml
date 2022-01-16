@@ -11,7 +11,7 @@ workflows:
         - "Welcome to the section for reporting bugs!"
         - { id: "bug_description", label: "Describe the bug", type: "text" }
         - { id: "test_textarea", label: "Textarea", type: "multiline" }
-        - { id: "test_datetime", label: "Datetime", type: "datetime-local" }
+        - { id: "test_datetime", label: "Datetime", type: "datetime-local", optional: true }
         - { id: "bool", label: "Boolean", type: "boolean" }
         - { text: "This bug occurs on the frontend", link: "endpoint:Bug", tags: [ "A:frontend" ] }
       Request Enhancement:
