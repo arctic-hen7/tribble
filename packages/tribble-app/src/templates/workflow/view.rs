@@ -120,7 +120,7 @@ pub fn workflow_inner(
         // We set the caret color at the top-level (changes the outlines of form inputs, cursor color, etc.)
         div(class = "flex justify-center w-full min-h-full py-2 xs:py-6 sm:py-8 md:py-16") {
             // TODO Top margins
-            div(class = "section-container xs:shadow-md xs:rounded-lg text-center flex-col md:w-[48rem] m-auto", id = "section-content") {
+            div(class = "section-container xs:shadow-md dark:xs:shadow-lg xs:rounded-lg text-center flex-col md:w-[48rem] m-auto", id = "section-content") {
                 HistoryBreadcrumbs()
                 // We want to alert screenreaders that this entire section can be swapped out for new content
                 div(class = "w-full flex flex-col justify-center") {
@@ -247,7 +247,7 @@ fn render_section(
                         view! {
                             button(
                                 on:click = progression_handler,
-                                class = "group inline-flex items-center p-5 text-lg shadow-md hover:shadow-lg transition-shadow duration-200 rounded-lg"
+                                class = "group inline-flex items-center p-5 text-lg shadow-md hover:shadow-lg dark:shadow-lg dark:hover:shadow-xl transition-shadow duration-200 rounded-lg"
                             ) {
                                 (text)
                                 div(class = "h-5 w-5 group-hover:ml-1 transition-all ease-in-out duration-200") {
@@ -582,11 +582,11 @@ fn render_report_endpoint(
     view! {
         div(class = "markdown mb-2", dangerously_set_inner_html = &preamble) {}
         // The report itself is preformatted
-        pre(class = "group overflow-x-auto break-words whitespace-pre-wrap bg-neutral-200 dark:bg-neutral-700 rounded-lg p-2 mb-1", tabindex = "0") {
+        pre(class = "group overflow-x-auto break-words whitespace-pre-wrap bg-neutral-200 dark:bg-neutral-700 rounded-lg p-4 mb-1 shadow-lg dark:shadow-xl", tabindex = "0") {
             div(class = "relative") {
                 button(
                     on:click = copy_handler,
-                    class = "absolute top-0 right-0 mt-1 mr-1 rounded-md invisible focus:visible group-focus:visible group-hover:visible bg-neutral-200 dark:bg-neutral-700 border border-neutral-100 hover:border-neutral-200 hover:bg-neutral-300 dark:hover:bg-neutral-600 dark:border-neutral-600 dark:hover:border-neutral-600 text-black dark:text-neutral-100 transition-all duration-200 opacity-0 group-focus:opacity-100 focus:opacity-100 group-hover:opacity-100"
+                    class = "absolute top-0 right-0 mt-1 mr-1 rounded-md invisible focus:visible group-focus:visible group-hover:visible bg-neutral-200 dark:bg-neutral-700 border border-neutral-100 hover:border-neutral-200 hover:bg-neutral-300 dark:hover:bg-neutral-600 dark:border-neutral-600 dark:hover:border-neutral-600 text-black dark:text-neutral-100 transition-all duration-200 opacity-0 group-focus:opacity-100 focus:opacity-100 group-hover:opacity-100 shadow-md hover:shadow-lg"
                 ) {
                     (svg!(r#"<svg aria-hiden=true xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 p-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>"#))
                 }
@@ -601,7 +601,7 @@ fn render_report_endpoint(
             // Even if it's internal to the site, this should never be handled by the router
             // Tribble is a separate system, so unless it's been plugin-augmented, this will always be outside our control
             rel = "external",
-            class = "group inline-flex items-center p-5 text-lg shadow-md hover:shadow-lg transition-shadow duration-200 rounded-lg"
+            class = "group inline-flex items-center p-5 text-lg shadow-md hover:shadow-lg dark:shadow-lg dark:hover:shadow-xl transition-shadow duration-200 rounded-lg"
         ) {
             (dest_text)
             div(class = "h-5 w-5 group-hover:ml-1 transition-all ease-in-out duration-200") {
@@ -683,7 +683,7 @@ fn history_breadcrumbs() -> View<G> {
         // BUG This can be ugly with very long section names, it's be nicer if all the text just flowed fully
         nav(aria-live = "assertive") {
             // We center vertically so that the text separators stay in line with the button padding
-            ol(class = "w-full flex flex-wrap items-center text-sm text-left") {
+            ol(class = "w-max flex flex-wrap items-center text-sm text-left p-[0.65rem] rounded-lg shadow-md dark:shadow-lg") {
                 (*sections_list.get())
             }
         }

@@ -130,6 +130,8 @@ div.select-wrapper:not(div.select-multiple)::after {
 }
 .markdown a {
     @apply text-primary dark:text-lighter hover:text-dark dark:hover:text-lightest transition-colors duration-200 underline;
+
+    @apply hover:drop-shadow-lg dark:hover:drop-shadow-xl;
 }
 .markdown h1 {
     @apply text-4xl mt-2;
