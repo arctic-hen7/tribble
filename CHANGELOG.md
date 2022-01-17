@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0-rc.6](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.5...v0.1.0-rc.6) (2022-01-17)
+
+
+### Features
+
+* added clearer shadows for better UX ([d9c6bb2](https://github.com/arctic-hen7/tribble/commit/d9c6bb203ebd2e5ef5d5088a542e77605bab5455))
+* added required field indicators ([67cd0c8](https://github.com/arctic-hen7/tribble/commit/67cd0c8c1ccc8d1bd3c47159a12f069cfa283a22))
+
 ## [0.1.0-rc.5](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.4...v0.1.0-rc.5) (2022-01-15)
 
 
