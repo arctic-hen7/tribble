@@ -10,4 +10,6 @@ docs/
 .tribble/
 
 # A generated executable
-tribble
+/tribble
+
+!.cargo
