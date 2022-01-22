@@ -1,6 +1,6 @@
 [package]
 name = "tribble-app"
-version = "0.1.0-rc.7"
+version = "0.1.0-rc.8"
 edition = "2018"
 description = "The Perseus app that underlies Tribble."
 authors = ["arctic_hen7 <arctic_hen7@pm.me>"]
