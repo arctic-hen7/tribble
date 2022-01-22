@@ -11,6 +11,10 @@ include = [
     "package-lock.json",
     "tailwind.config.js"
 ]
+exclude = [
+    "node_modules/",
+    ".perseus/"
+]
 description = "The Perseus app that underlies Tribble."
 authors = ["arctic_hen7 <arctic_hen7@pm.me>"]
 license = "MIT"
