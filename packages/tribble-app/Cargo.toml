@@ -2,6 +2,15 @@
 name = "tribble-app"
 version = "0.1.0-rc.6"
 edition = "2018"
+include = [
+    "src/",
+    "Cargo.toml",
+    ".cargo/",
+    "index.html",
+    "package.json",
+    "package-lock.json",
+    "tailwind.config.js"
+]
 description = "The Perseus app that underlies Tribble."
 authors = ["arctic_hen7 <arctic_hen7@pm.me>"]
 license = "MIT"
