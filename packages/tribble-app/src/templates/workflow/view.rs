@@ -551,15 +551,11 @@ fn render_report_endpoint(
         interpolated_text = interpolated_text.replace(&format!("${{{}}}", id), &value.get());
     }
     // Now collate everything together in one convenient block
+    // We hide the tags away in internal details
+    // WARNING: If anything ever changes here, we need to update `getRequestedLabels` in the bot
     let report_text = format!(
-        "{}\n\n{}",
-        interpolated_text,
-        // We hide the tags away in internal details
-        // WARNING: If anything ever changes here, we need to update `getRequestedLabels` in the bot
-        format!(
-            "<details>\n<summary>Tribble internal data</summary>\n\n{}\n\n</details>",
-            encoded_tags
-        )
+        "{}\n\n<details>\n<summary>Tribble internal data</summary>\n\n{}\n\n</details>",
+        interpolated_text, encoded_tags
     );
     // Interpolate that into the destination URL if needed
     let dest_url = dest_url.replace("%s", &urlencoding::encode(&report_text));
