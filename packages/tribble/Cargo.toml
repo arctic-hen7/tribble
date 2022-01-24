@@ -5,8 +5,7 @@ edition = "2021"
 include = [
     "src/",
     "Cargo.toml",
-    ".tribble/",
-    ".cargo/"
+    ".tribble/"
 ]
 description = "A CLI for generating websites to guide people through contributing to open-source projects."
 authors = ["arctic_hen7 <arctic_hen7@pm.me>"]
