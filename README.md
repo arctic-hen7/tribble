@@ -121,11 +121,17 @@ The Tribble CLI supports just five commands, but they can be used to create comp
 
 ### Deploying
 
-Oncee you've built some Tribble workflows and you want to deploy them to your website, run `tribble deploy --path <serve-path>` (where `<serve-path>` is the URl of the relative path at which you'll serve Tribble, e.g. `/tribble`) to generate a `pkg/` folder. That will contain static files that you can deploy to any hosting provider that supports serving static assets. For example, on GitHub Pages, you'd just add that folder to the root of your site and rename it to `tribble`, and then you'd be able to access the `test` workflow at `https://<your-username>.github.io/<your-repo>/tribble/workflow/test`. The generated files are fully production-ready, and they'll produce an extremely performant site built with [Perseus](https://github.com/arctic-hen7/perseus), which uses Rust in the browser to achieve maximum performance. Note though that your workflows will only be useable on browsers that support WebAssembly (basically everything except Internet Explorer). (Generally speaking, developers who are likely to contribute to an open-source project will have modern browsers.)
+Once you've built some Tribble workflows and you want to deploy them to your website, run `tribble deploy --path <serve-path>` (where `<serve-path>` is the URl of the relative path at which you'll serve Tribble, e.g. `/tribble`) to generate a `pkg/` folder. That will contain static files that you can deploy to any hosting provider that supports serving static assets. For example, on GitHub Pages, you'd just add that folder to the root of your site and rename it to `tribble`, and then you'd be able to access the `test` workflow at `https://<your-username>.github.io/<your-repo>/tribble/workflow/test`. The generated files are fully production-ready, and they'll produce an extremely performant site built with [Perseus](https://github.com/arctic-hen7/perseus), which uses Rust in the browser to achieve maximum performance. Note though that your workflows will only be useable on browsers that support WebAssembly (basically everything except Internet Explorer). (Generally speaking, developers who are likely to contribute to an open-source project will have modern browsers.)
 
 If you want to host the Tribble instances for multiple projects in one place, have no fear, that's exactly what workflows are for! You can define as many as you want (as long as they're the same across all locales), and then you can use one Tribble instance for many entirely different projects (or just for different parts of a very large project).
 
 If you visit your deployed Tribble instance and you see an unstyled website (i.e. massive arrows taking up the whole screen), make sure you have the `--path` setting correct in `tribble deploy`. Tribble uses this to know where it is, and to know the location of its CSS files, hence why it appears unstyled when this setting is incorrect.
+
+## Integrating with GitHub
+
+One of the most powerful features of Tribble is its ability to let users accumulate tags as they go through workflows. Better still, these tags can be transformed automatically into labels on GitHub with the [Tribble bot](https://github.com/arctic-hen7/tribble-bot)! The main benefit of this is that issues can be immediately categorized entirely automatically, enabling faster response to issues and easier project management.
+
+*Right now, Tribble only has an integration for GitHub, but we're very willing to look into developing integrations for other platforms if there's interest!*
 
 ## License
 
