@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.9...v0.1.0) (2022-01-24)
+
 ## [0.1.0-rc.9](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.8...v0.1.0-rc.9) (2022-01-22)
 
 ## [0.1.0-rc.8](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.7...v0.1.0-rc.8) (2022-01-22)
