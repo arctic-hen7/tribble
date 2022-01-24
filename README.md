@@ -33,8 +33,15 @@ Tribble automatically generates binaries for Windows, MacOS, Linux, and Linux mu
 If you have Cargo installed, just run the following command and you'll be set!
 
 ``` shell
-cargo install tribble
+RUSTFLAGS=--cfg=web_sys_unstable_apis cargo install tribble
 ```
+
+<details>
+<summary>What's that bit about `RUSTFLAGS`?</summary>
+
+Tribble uses the Clipboard API for user convenience, and the way we do this in Rust is through a crate called `web_sys` that exposes web APIs. Right now, the one for the clipboard happens to be unstable, and that flag has to provided to `rustc` for things to work. Regrettably, this can't be put in a configuration file, the final user has to set it. Don't worry though, you'll only need to do this once when you run `cargo install`, and it won't change any other settings on your system. If you're concerned though, you can always use the binaries on [the releases page](https://github.com/arctic-hen7/tribble/releases).
+
+</details>
 
 ### Other package managers
 
