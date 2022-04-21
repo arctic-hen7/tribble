@@ -31,4 +31,9 @@ pub enum ExportError {
         #[source]
         source: perseus::errors::ServerError,
     },
+    #[error("couldn't build global state")]
+    GscFailed {
+        #[source]
+        source: perseus::errors::GlobalStateError,
+    },
 }

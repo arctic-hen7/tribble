@@ -33,13 +33,14 @@ prep-wasm.cmd = [
     # Working directories for Perseus
     "mkdir packages/tribble/.tribble/perseus",
     "mkdir packages/tribble/.tribble/perseus/mutable",
-    "cd packages/tribble-app/.perseus",
+    "cd packages/tribble-app/",
+    "perseus prep",
+    "cd .perseus/",
     "wasm-pack build --target web --release",
     "cd ../",
     # Copy in utilities (bundles and CSS)
     "cp .perseus/pkg/perseus_engine_bg.wasm ../tribble/.tribble/utils/bundle.wasm",
     "cp .perseus/pkg/perseus_engine.js ../tribble/.tribble/utils/bundle.js",
-    "cp index.html ../tribble/.tribble/utils/index.html",
     "cp -r static/ ../tribble/.tribble/utils/static"
 ]
 prep-wasm.desc = "builds the wasm artifacts and prepares them for the cli"
