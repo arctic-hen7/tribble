@@ -4,10 +4,10 @@ pub mod parser;
 mod svg;
 mod templates;
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(all(not(target_arch = "wasm32"), feature = "export"))]
 mod export;
 // We want the CLI to be able to export the app directly (without relying on the Perseus CLI)
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(all(not(target_arch = "wasm32"), feature = "export"))]
 pub use export::export;
 
 use perseus::{Html, PerseusApp, PerseusRoot, Plugins};

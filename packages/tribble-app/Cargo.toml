@@ -32,6 +32,8 @@ urlencoding = "2"
 
 [features]
 schema = [ "schemars" ]
+# We need to enable the `server-side` feature for some of the exporting code to work
+export = [ "perseus/server-side" ]
 
 [[bin]]
 name = "schema"
