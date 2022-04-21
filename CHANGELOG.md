@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/arctic-hen7/tribble/compare/v0.1.0...v0.1.1) (2022-04-21)
+
+
+### Features
+
+* upgraded for perseus v0.3.5 ([78b73df](https://github.com/arctic-hen7/tribble/commit/78b73df5a2b91184aa6f59db82b6f7077284e9c4))
+
+
+### Bug Fixes
+
+* made perseus features work ([bb8842a](https://github.com/arctic-hen7/tribble/commit/bb8842a74cd6b2e6441fc60b7b5afe30a138fb51))
+
 ## [0.1.0](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.9...v0.1.0) (2022-01-24)
 
 ## [0.1.0-rc.9](https://github.com/arctic-hen7/tribble/compare/v0.1.0-rc.8...v0.1.0-rc.9) (2022-01-22)
