@@ -597,6 +597,8 @@ fn render_report_endpoint(
             // Even if it's internal to the site, this should never be handled by the router
             // Tribble is a separate system, so unless it's been plugin-augmented, this will always be outside our control
             rel = "external",
+            // The new link should always open in a new tab, to prevent any possible data loss (e.g. URL too long)
+            target = "_blank",
             class = "group inline-flex items-center p-5 text-lg shadow-md hover:shadow-lg dark:shadow-lg dark:hover:shadow-xl transition-shadow duration-200 rounded-lg"
         ) {
             (dest_text)
